@@ -74,6 +74,7 @@ in /etc/libvirt/libvirtd.conf:
     tcp_port = "16509"
     # tls_port = "16514"
     listen_addr = "127.0.0.1"
+    auth_tcp=none
 
 And fix the init-script settings to start libvirtd with --listen option
 
