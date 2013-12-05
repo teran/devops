@@ -63,3 +63,21 @@ At this point you are ready to make your first devops application.
    environment.define()
 
 This code creates environment 'myenv' with only one VM 'mynode' and attaches 10G qcow2 volume to it. It also creates libvirt network 'mynet' from the range 10.0.0.0/16.
+
+As we use TCP connection to libvirtd we need to set it up to accept TCP.
+
+in /etc/libvirt/libvirtd.conf:
+
+::
+    listen_tls = 0
+    listen_tcp = 1
+    tcp_port = "16509"
+    # tls_port = "16514"
+
+And fix the init-script settings to start libvirtd with --listen option
+
+in /etc/default/libvirt-bin:
+
+::
+    # options passed to libvirtd, add "-l" to listen on tcp
+    libvirtd_opts="-d -l"
